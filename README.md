@@ -1,4 +1,4 @@
-![sweet 3d logo](gff3d.png)
+![sweet 3d logo](gff3dlogo.png)
 
 # gff3d -- GFF3 record abstraction reader/writer for Dlang
 
