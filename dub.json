@@ -1,0 +1,9 @@
+{
+    "name": "gff3d",
+    "description": "GFF3 record reader/writer abstraction",
+    "authors": ["James S Blachly, MD <james.blachly@gmail.com>", "Thomas Gregory <charles.gregory@osumc.edu>"],
+    "homepage": "https://github.com/blachlylab/gff3d",
+    "copyright": "Copyright 2018-2019 The Authors",
+	"license": "MIT",
+    "targetType": "sourceLibrary"
+}
