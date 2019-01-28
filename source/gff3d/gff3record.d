@@ -1,4 +1,4 @@
-module gff3_record;
+module gff3d.gff3record;
 
 import std.stdio;
 import std.algorithm.iteration: splitter;
@@ -13,7 +13,7 @@ import std.algorithm.searching: countUntil;
 import std.range: drop, ForwardRange, chain;
 import std.format : format;
 
-import dhtslib.htslib.hts_log;
+//import dhtslib.htslib.hts_log;
 
 /** GFF3 Record
 
@@ -42,7 +42,7 @@ struct GFF3_Record
     /// TODO: Not implemented; (almost) always true
     @property bool isValid()
     {
-        hts_log_trace(__FUNCTION__, format("raw.length %d", raw.length));
+        //hts_log_trace(__FUNCTION__, format("raw.length %d", raw.length));
         return (raw.length >= 0 ? true : false);
     }
 
