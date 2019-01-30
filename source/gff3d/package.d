@@ -15,5 +15,6 @@ Standards: http://gmod.org/wiki/GFF3
     https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md
     http://www.sequenceontology.org/gff3.shtml
 */
+module gff3d;
 
 public import gff3d.gff3record;
