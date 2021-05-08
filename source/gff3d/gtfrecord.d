@@ -1,4 +1,4 @@
-module gff3d.gff3record;
+module gff3d.gtfrecord;
 
 import std.stdio;
 import std.algorithm.iteration: splitter;
@@ -17,18 +17,16 @@ import dhtslib.coordinates;
 
 //import dhtslib.htslib.hts_log;
 
-/** GFF3 Record
+/** GTF Record
 
 Format Documentation:
- *  http://gmod.org/wiki/GFF3
- *  https://useast.ensembl.org/info/website/upload/gff3.html
- *  https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md
- *  http://www.sequenceontology.org/gff3.shtml
- *
+ *  http://gmod.org/wiki/GFF2#The_GFF2_File_Format
+ *  https://useast.ensembl.org/info/website/upload/gff.html
+ *  
  *  TODO: make sortable
  *  TODO: Make record builder (i.e. start with blank record and add attrs) to prep for writing
  */
-struct GFF3_Record
+struct GTF_Record
 {
     private ubyte[] raw;
 
@@ -119,9 +117,9 @@ struct GFF3_Record
     string opIndex(string field) const {
         const attrs=this.raw.splitter('\t').drop(8).front.splitter(";");
         auto val = attrs    // actualy a Range of key=val
-            .filter!(kv => cast(string)(kv[0 .. kv.countUntil('=')]) == field);
+            .filter!(kv => ((cast(string) kv).strip[0 .. (cast(string) kv).strip.countUntil(' ')]) == field);
             //.front; // -- AssertError if range is empty
-        if (!val.empty) return cast(string) (val.front[val.front.countUntil('=')+1..$]);
+        if (!val.empty) return ((cast(string) val.front).strip[(cast(string) val.front).strip.countUntil(' ') + 1..$]).strip.strip("\"");
         else return "";
 
         /+ Alternative impl -- benchmark (also pull field ~ "=" out of the filter and combine it once upfront)
@@ -186,8 +184,8 @@ struct GFF3_Record
 
 }
 unittest{
-    auto rec    = GFF3_Record("chr1\tHAVANA\tgene\t11869\t14409\t.\t+\t.\tID=ENSG00000223972.5;gene_id=ENSG00000223972.5;gene_id=ENSG00000223972.5;gene_type=transcribed_unprocessed_pseudogene;gene_name=DDX11L1;level=2;havana_gene=OTTHUMG00000000961.2"); // @suppress(dscanner.style.long_line)
-    auto rec_neg= GFF3_Record("chr1\tHAVANA\tgene\t11869\t14409\t.\t-\t.\tID=ENSG00000223972.5;gene_id=ENSG00000223972.5;gene_id=ENSG00000223972.5;gene_type=transcribed_unprocessed_pseudogene;gene_name=DDX11L1;level=2;havana_gene=OTTHUMG00000000961.2"); // @suppress(dscanner.style.long_line)
+    auto rec    = GTF_Record("chr1\tHAVANA\tgene\t11869\t14409\t.\t+\t.\tID \"ENSG00000223972.5\" ; gene_id ENSG00000223972.5 ; gene_id ENSG00000223972.5 ; gene_type transcribed_unprocessed_pseudogene ; gene_name DDX11L1 ; level 2 ; havana_gene OTTHUMG00000000961.2"); // @suppress(dscanner.style.long_line)
+    auto rec_neg= GTF_Record("chr1\tHAVANA\tgene\t11869\t14409\t.\t-\t.\tID \"ENSG00000223972.5\" ; gene_id ENSG00000223972.5 ; gene_id ENSG00000223972.5 ; gene_type transcribed_unprocessed_pseudogene ; gene_name DDX11L1 ; level 2 ; havana_gene OTTHUMG00000000961.2"); // @suppress(dscanner.style.long_line)
 
     assert(rec.seqid=="chr1");
     assert(rec.source=="HAVANA");

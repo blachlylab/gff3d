@@ -5,5 +5,10 @@
     "homepage": "https://github.com/blachlylab/gff3d",
     "copyright": "Copyright 2018-2019 The Authors",
 	"license": "MIT",
-    "targetType": "sourceLibrary"
+    "targetType": "sourceLibrary",
+    "dependencies": {
+        "dhtslib" : {
+            "path": "../dhtslib"
+        }
+    }
 }
