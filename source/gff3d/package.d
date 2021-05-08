@@ -18,3 +18,4 @@ Standards: http://gmod.org/wiki/GFF3
 module gff3d;
 
 public import gff3d.gff3record;
+public import gff3d.gtfrecord;

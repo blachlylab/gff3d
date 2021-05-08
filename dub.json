@@ -7,8 +7,6 @@
 	"license": "MIT",
     "targetType": "sourceLibrary",
     "dependencies": {
-        "dhtslib" : {
-            "path": "../dhtslib"
-        }
+        "dhtslib" : "~coordsystem"
     }
 }
